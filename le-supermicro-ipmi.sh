@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 set -e
+
+if ! [ -z ${DEBUG+x} ]; then
+	set -x
+fi
+
 if [ -z ${IPMI_USERNAME+x} ]; then
         echo "IPMI_USERNAME not set!"
         exit 1
