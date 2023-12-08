@@ -1,9 +1,20 @@
-FROM alpine:3
+FROM debian:bookworm-slim
 
-RUN apk add --no-cache ca-certificates bash lego openssl python3 py3-pip py3-requests py3-lxml
+RUN apt-get update && apt-get install -y \
+    ca-certificates \
+    coreutils \
+    lego \
+    openssl \
+    python3 \
+    python3-pip \
+    python3-requests \
+    python3-lxml \
+    && rm -rf /var/lib/apt/lists/*
 
 ADD le-supermicro-ipmi.sh supermicro-ipmi-updater.py /
 
 VOLUME /.lego
+
+WORKDIR /
 
 ENTRYPOINT ["/le-supermicro-ipmi.sh"]
